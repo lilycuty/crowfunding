@@ -1,0 +1,20 @@
+import { PropTypes } from 'prop-types'
+
+const Label = ({ htmlFor = '', className = '', children }) => {
+  return (
+    <label
+      htmlFor={htmlFor}
+      className={`text-sm font-medium text-text2 cursor-pointer inline-block 
+      ${className}`}
+    >
+      {children}
+    </label>
+  )
+}
+
+Label.propTypes = {
+  children: PropTypes.node,
+  htmlFor: PropTypes.string,
+  className: PropTypes.string
+}
+export default Label

@@ -1,5 +1,9 @@
 # Thư viện sử dụng
 
+- react router dom: npm i react-router-dom
+
+- redux toolkit: npm i @reduxjs/toolkit
+
 - axios: npm i axios
 
 - firebase: npm i firebase

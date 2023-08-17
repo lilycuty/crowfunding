@@ -1,10 +1,14 @@
+import React, { Suspense } from 'react'
+import { Routes, Route } from 'react-router-dom'
+const SignUpPage = React.lazy(() => import('./pages/SignUpPage'))
+
 const App = () => {
   return (
-    <div>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. A voluptatem
-      saepe sunt corporis aut aliquam id odit ipsa quod mollitia, totam modi
-      consectetur commodi voluptatum sed, accusamus numquam quis. Tempore.
-    </div>
+    <Suspense>
+      <Routes>
+        <Route path='/sign-up' element={<SignUpPage></SignUpPage>}></Route>
+      </Routes>
+    </Suspense>
   )
 }
 
