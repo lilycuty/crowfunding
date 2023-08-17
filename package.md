@@ -24,7 +24,7 @@
 
 - react-hook-form:
   npm i react-hook-form
-  npm i react-hooks-yup-form
+  npm i @hookform/resolvers
 
 - react-modal: npm install --save react-modal
 

@@ -7,13 +7,13 @@ const Checkbox = ({
   children
 }) => {
   return (
-    <div className='flex items-start gap-x-5'>
+    <div className='flex items-center gap-x-5 justify-center'>
       <label
         htmlFor={name}
-        className={`inline-flex items-center justify-center p-1 text-white w-5 h-5 rounded border cursor-pointer ${
+        className={`inline-flex items-center justify-center p-1 w-5 h-5 rounded border cursor-pointer select-none ${
           checked
-            ? 'bg-primary border-primary'
-            : 'border-text4 text-transparent'
+            ? 'bg-primary border-primary text-white'
+            : 'border-text4 text-transparent dark:border-text3'
         }`}
         onClick={onClick}
       >

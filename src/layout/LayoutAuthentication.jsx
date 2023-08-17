@@ -7,7 +7,7 @@ import ErrorComponent from '../components/common/ErrorComponent'
 const LayoutAuthentication = (props) => {
   const { heading, children } = props
   return (
-    <div className='w-full min-h-screen bg-lite p-10 relative isolate'>
+    <div className='w-full min-h-screen bg-lite dark:bg-darkbg p-10 relative isolate'>
       <img
         src='/ellipse.png'
         alt='Elippse'
@@ -16,8 +16,8 @@ const LayoutAuthentication = (props) => {
       <Link to='/' className='inline-block mb-5 lg:mb-16'>
         <img srcSet='/logo.png 2x' alt='Crowfunding-app' />
       </Link>
-      <div className='w-full max-w-[556px] mx-auto bg-white rounded-xl px-5 py-8 lg:px-[60px] lg:py-[50px] shadow'>
-        <h1 className='font-semibold text-lg lg:text-xl mb-1 lg:mb-3 text-text1 text-center'>
+      <div className='w-full max-w-[556px] mx-auto bg-white dark:bg-darkSecondary rounded-xl px-5 py-8 lg:px-[60px] lg:py-[50px] shadow'>
+        <h1 className='font-semibold text-lg lg:text-xl mb-1 lg:mb-3 text-text1 dark:text-white text-center'>
           {heading}
         </h1>
         {children}
