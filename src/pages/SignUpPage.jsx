@@ -1,16 +1,20 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
-import LayoutAuthentication from '../layout/LayoutAuthentication'
+import useToggleValue from 'src/hooks/useToggleValue'
+import LayoutAuthentication from 'src/layout/LayoutAuthentication'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
-import { Label } from '../components/label'
-import { Input } from '../components/input'
-import { IconGoogle } from '../components/icon'
-import { Field } from '../components/field'
-import { Checkbox } from '../components/checkbox'
-import { Button } from '../components/button'
+import { Label } from 'components/label'
+import { InputTogglePassword } from 'components/input'
+import { Input } from 'components/input'
+import { Field } from 'components/field'
+import { Checkbox } from 'components/checkbox'
+import { ButtonGoggle } from 'src/components/button'
+import { Button } from 'components/button'
+import { withErrorBoundary } from 'react-error-boundary'
+import ErrorComponent from 'src/components/common/ErrorComponent'
 
 const schema = yup.object({
   fullname: yup.string().required('This field is required'),
@@ -23,9 +27,10 @@ const schema = yup.object({
     .required('This field is required')
     .min(8, 'Password must be 8 character')
 })
-const SignUpPage = () => {
-  const [acceptTerm, setAcceptTerm] = useState(false)
 
+const SignUpPage = () => {
+  const { value: acceptTerm, handleToggleValue: handleToggleTerm } =
+    useToggleValue(false)
   const {
     handleSubmit,
     control,
@@ -34,18 +39,13 @@ const SignUpPage = () => {
     mode: 'onSubmit',
     resolver: yupResolver(schema)
   })
-  console.log('SignUpPage ~ errors', errors)
 
   const handleSignUpForm = (values) => {
     console.log('handleSignUpForm ~ values', values)
   }
-  const handleToggleTerm = () => {
-    setAcceptTerm(!acceptTerm)
-  }
-  console.log('SignUpPage ~ acceptTerm', acceptTerm)
 
   return (
-    <LayoutAuthentication heading='Sign up'>
+    <LayoutAuthentication heading='Sign Up'>
       <p
         className='text-xs text-center lg:text-sm font-normal text-text3 lg:mb-8
       mb-6'
@@ -55,10 +55,7 @@ const SignUpPage = () => {
           Sign in
         </Link>
       </p>
-      <button className='flex items-center justify-center gap-x-3 w-full py-4 border border-strock  dark:border-darkStroke rounded-xl text-text2 text-base font-semibold mb-5 dark:text-white'>
-        <IconGoogle />
-        <span>Sign up with google</span>
-      </button>
+      <ButtonGoggle>Sign up with google</ButtonGoggle>
       <p className='text-center text-xs lg:text-sm font-normal mb-4 lg:mb-8 text-text2 dark:text-white'>
         Or sign up with email
       </p>
@@ -87,13 +84,12 @@ const SignUpPage = () => {
 
         <Field>
           <Label htmlFor='password'>Password *</Label>
-          <Input
-            type='password'
+          <InputTogglePassword
             name='password'
             placeholder='Create a password'
             error={errors.password?.message}
             control={control}
-          ></Input>
+          ></InputTogglePassword>
         </Field>
 
         <div className='flex items-center gap-x-5 mb-5'>
@@ -119,4 +115,6 @@ const SignUpPage = () => {
   )
 }
 
-export default SignUpPage
+export default withErrorBoundary(SignUpPage, {
+  FallbackComponent: ErrorComponent
+})
