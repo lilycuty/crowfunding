@@ -27,6 +27,9 @@ export default {
         darkSoft: '#24242c',
         darkStroke: '#3a3a43',
         darkRed: '#422c32'
+      },
+      boxShadow: {
+        sdprimary: '10px 10px 20px 0px rgba(211, 211, 211, 0.25)'
       }
     }
   },
