@@ -107,7 +107,7 @@ const SignUpPage = () => {
           </Checkbox>
         </div>
 
-        <Button className='bg-primary w-full' type='submit'>
+        <Button className='w-full' kind='primary' type='submit'>
           Create my account
         </Button>
       </form>

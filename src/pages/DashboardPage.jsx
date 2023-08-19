@@ -1,12 +1,36 @@
+import Gap from 'src/components/common/Gap'
+import Heading from 'src/components/common/Heading'
 import LayoutDashboard from 'src/layout/LayoutDashboard'
+import CampaignFeature from 'src/modules/campaign/CampaignFeature'
+import CampaignGrid from 'src/modules/campaign/CampaignGrid'
+import CampaignItem from 'src/modules/campaign/CampaignItem'
+import { v4 } from 'uuid'
 
 const DashboardPage = () => {
   return (
     <LayoutDashboard>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni libero
-      perferendis aliquid esse non officiis ut consequuntur totam ipsa fugiat.
-      Fuga, consectetur maiores itaque perspiciatis harum quam vitae neque
-      molestias.
+      <Heading number={4}>Your campaign</Heading>
+      <CampaignFeature></CampaignFeature>
+      <Gap></Gap>
+
+      <Heading>Popular campaign</Heading>
+      <CampaignGrid>
+        {Array(4)
+          .fill(0)
+          .map((item) => (
+            <CampaignItem key={v4()}></CampaignItem>
+          ))}
+      </CampaignGrid>
+      <Gap></Gap>
+
+      <Heading>Recent Campaign</Heading>
+      <CampaignGrid>
+        {Array(4)
+          .fill(0)
+          .map((item) => (
+            <CampaignItem key={v4()}></CampaignItem>
+          ))}
+      </CampaignGrid>
     </LayoutDashboard>
   )
 }

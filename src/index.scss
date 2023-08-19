@@ -3,7 +3,12 @@
 @tailwind utilities;
 @layer base {
   body {
-    @apply font-primary text-base font-normal;
+    @apply font-primary text-base font-normal mx-auto;
+    max-width: 1440px;
+    //Giúp chữ mỏng hơn
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   input {
     @apply outline-none;
@@ -11,4 +16,8 @@
 }
 input:focus + .error-input {
   display: none;
+}
+.menu-sidebar.active {
+  background-color: rgba(29, 192, 113, 0.1);
+  color: #1dc071;
 }

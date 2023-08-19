@@ -1,9 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
 import PropTypes from 'prop-types'
 import ErrorComponent from '../common/ErrorComponent'
+import classNames from 'src/utils/classNames'
 import { withErrorBoundary } from 'react-error-boundary'
 import { useController } from 'react-hook-form'
-import classNames from 'src/utils/classNames'
 
 const Input = (props) => {
   const {

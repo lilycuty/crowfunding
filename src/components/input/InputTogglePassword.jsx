@@ -63,5 +63,5 @@ InputTogglePassword.propTypes = {
   placeholder: PropTypes.string
 }
 export default withErrorBoundary(InputTogglePassword, {
-  FallbackComponent: <ErrorComponent></ErrorComponent>
+  FallbackComponent: ErrorComponent
 })
