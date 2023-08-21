@@ -1,11 +1,11 @@
-import LayoutDashboard from 'src/layout/LayoutDashboard'
+import { Fragment } from 'react'
 import CampaignAddNew from 'src/modules/campaign/CampaignAddNew'
 
 const StartCampaignPage = () => {
   return (
-    <LayoutDashboard>
+    <Fragment>
       <CampaignAddNew></CampaignAddNew>
-    </LayoutDashboard>
+    </Fragment>
   )
 }
 
