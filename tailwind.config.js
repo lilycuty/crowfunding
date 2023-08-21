@@ -18,6 +18,7 @@ export default {
         white: '#ffffff',
         whiteSoft: '#fcfbff',
         graySoft: '#fcfcfc',
+        grayf3: '#f3f3f3',
         strock: '#f1f1f3',
         lite: '#fcfcfd',
         error: '#eb5757',
