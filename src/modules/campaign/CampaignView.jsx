@@ -1,27 +1,22 @@
-import { Fragment } from 'react'
-import CampImage from './parts/CampImage'
-import CampCategory from './parts/CampCategory'
-import CampTitle from './parts/CampTitle'
-import CampDesc from './parts/CampDesc'
-import CampMeta from './parts/CampMeta'
-import { Button } from 'src/components/button'
-import CampProgress from './parts/CampProgress'
 import CampViewAuthor from './parts/CampViewAuthor'
-import { defaultImage } from 'src/constants/global'
+import CampTitle from './parts/CampTitle'
+import CampProgress from './parts/CampProgress'
+import CampMeta from './parts/CampMeta'
+import CampImage from './parts/CampImage'
+import CampDesc from './parts/CampDesc'
+import CampCategory from './parts/CampCategory'
 import CampaignSupport from './CampaignSupport'
 import CampaignPerk from './CampaignPerk'
-import CampaignGrid from './CampaignGrid'
 import CampaignItem from './CampaignItem'
+import CampaignGrid from './CampaignGrid'
+import { Fragment } from 'react'
+import { defaultImage } from 'src/constants/global'
+import { Button } from 'src/components/button'
 
 const CampaignView = () => {
   return (
     <Fragment>
-      <div
-        className='h-[140px] rounded-3xl bg-cover bg-no-repeat bg-center bg-opacity-80 flex items-center justify-center text-white text-[40px] font-bold mb-10'
-        style={{
-          backgroundImage: `linear-gradient(180deg, rgba(32, 18, 63, 0) 0%, #000 93.43%), url(https://source.unsplash.com/random)`
-        }}
-      >
+      <div className='h-[140px] rounded-3xl bg-cover bg-no-repeat bg-center bg-opacity-80 flex items-center justify-center text-white text-[40px] font-bold mb-10 gradient-banner'>
         <h1>Education</h1>
       </div>
       <div className='flex items-start gap-x-10 w-full max-w-[1066px]'>
@@ -83,7 +78,10 @@ const CampaignView = () => {
       </div>
 
       <div className='grid gap-x-[124px] grid-cols-[1.3fr,1fr] mb-[70px]'>
-        <div></div>
+        <div>
+          <h2 className='text-lg font-semibold uppercase mb-5'>Story</h2>
+          <div className='bg-white w-full'></div>
+        </div>
         <div>
           <CampaignSupport></CampaignSupport>
           <div className='mb-[60px]'></div>

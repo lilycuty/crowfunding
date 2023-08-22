@@ -45,3 +45,39 @@ input:focus + .error-input {
   box-shadow: -4px 4px 8px rgba(226, 226, 226, 0.2),
     4px 4px 8px rgba(226, 226, 226, 0.2);
 }
+.gradient-banner {
+  background-image: linear-gradient(180deg, rgba(32, 18, 63, 0) 0%, #000 93.43%),
+    url('https://source.unsplash.com/random');
+}
+.ReactModal__Body--open {
+  overflow: hidden;
+}
+.scroll-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+body .react-date-picker {
+  @apply w-full py-4 px-6 border rounded-xl text-sm font-medium dark:text-white placeholder:text-text4 dark:placeholder:text-text2 bg-transparent border-strock dark:border-darkStroke text-text1;
+  height: 54px;
+  &__wrapper {
+    @apply border-none justify-between items-center;
+  }
+  &__clear-button {
+    @apply hidden;
+  }
+  &__inputGroup {
+    min-width: 0;
+    flex-grow: 0;
+  }
+  &__button {
+    padding: 0;
+  }
+}
+body {
+  .react-date-picker__calendar .react-calendar {
+    @apply border-none shadow rounded-lg;
+  }
+}

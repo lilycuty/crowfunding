@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 import ReactQuill, { Quill } from 'react-quill'
 import ImageUploader from 'quill-image-uploader'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Label } from 'src/components/label'
 import { Input, TextArea } from 'src/components/input'
@@ -9,17 +8,45 @@ import { Field, FieldRow } from 'src/components/field'
 import { Dropdown } from 'src/components/dropdown'
 import 'react-quill/dist/quill.snow.css'
 import { Button } from 'src/components/button'
+import axios from 'axios'
+import useOnChange from 'src/hooks/useOnChange'
+import { toast } from 'react-toastify'
+import DatePicker from 'react-date-picker'
+import 'react-date-picker/dist/DatePicker.css'
+import 'react-calendar/dist/Calendar.css'
 Quill.register('modules/imageUploader', ImageUploader)
 
 const CampaignAddNew = () => {
   const [content, setContent] = useState('')
-
-  const { handleSubmit, control } = useForm()
+  const [countries, setCountries] = useState([])
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
+  const { handleSubmit, control, setValue } = useForm()
 
   const handleAddNewCampaign = (values) => {
     console.log('handleAddNewCampaign ~ values', values)
   }
 
+  const handleSelectDropdownOption = (name, value) => {
+    setValue(name, value)
+  }
+  const [filterCountry, setFilterCountry] = useOnChange(500)
+  useEffect(() => {
+    async function fetchCountries() {
+      try {
+        //Nếu chưa có gì cả sẽ không request tới sever
+        if (!filterCountry) return
+        const response = await axios.get(
+          `https://restcountries.com/v3.1/name/${filterCountry}`
+        )
+        console.log(response)
+        setCountries(response.data)
+      } catch (error) {
+        toast.error('Errors', error.message)
+      }
+    }
+    fetchCountries()
+  }, [filterCountry])
   //useMemo không bị re-render khi giá trị thay đổi
   const modules = useMemo(
     () => ({
@@ -57,9 +84,13 @@ const CampaignAddNew = () => {
               <Dropdown>
                 <Dropdown.Select placeholder='Select a category'></Dropdown.Select>
                 <Dropdown.List>
-                  <Dropdown.Option>Fullstack</Dropdown.Option>
-                  <Dropdown.Option>Fullstack</Dropdown.Option>
-                  <Dropdown.Option>Fullstack</Dropdown.Option>
+                  <Dropdown.Option
+                    onClick={() =>
+                      handleSelectDropdownOption('category', 'fullstack')
+                    }
+                  >
+                    Fullstack
+                  </Dropdown.Option>
                 </Dropdown.List>
               </Dropdown>
             </Field>
@@ -140,12 +171,28 @@ const CampaignAddNew = () => {
             </Field>
             <Field>
               <Label>Counrty</Label>
-              {/* Dropdown */}
               <Dropdown>
                 <Dropdown.Select placeholder='Select a counrty'></Dropdown.Select>
                 <Dropdown.List>
-                  <Dropdown.Option>Fullstack</Dropdown.Option>
-                  <Dropdown.Option>Fullstack</Dropdown.Option>
+                  <Dropdown.Search
+                    placeholder='Search country'
+                    onChange={setFilterCountry}
+                  ></Dropdown.Search>
+                  {countries.length > 0 &&
+                    filterCountry !== '' &&
+                    countries.map((country) => (
+                      <Dropdown.Option
+                        key={country?.name?.common}
+                        onChange={() =>
+                          handleSelectDropdownOption(
+                            'country',
+                            country?.name?.commons
+                          )
+                        }
+                      >
+                        {country?.name?.common}
+                      </Dropdown.Option>
+                    ))}
                 </Dropdown.List>
               </Dropdown>
             </Field>
@@ -154,19 +201,19 @@ const CampaignAddNew = () => {
           <FieldRow>
             <Field>
               <Label htmlFor='startDate'>Start Date</Label>
-              <Input
-                control={control}
-                placeholder='Start Date'
-                name='startDate'
-              ></Input>
+              <DatePicker
+                onChange={setStartDate}
+                value={startDate}
+                format='dd-MM-yyyy'
+              />
             </Field>
             <Field>
               <Label htmlFor='endDate'>End Date</Label>
-              <Input
-                control={control}
-                placeholder='End Date'
-                name='endDate'
-              ></Input>
+              <DatePicker
+                onChange={setEndDate}
+                value={endDate}
+                format='dd-MM-yyyy'
+              />
             </Field>
           </FieldRow>
 
