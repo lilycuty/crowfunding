@@ -14,22 +14,42 @@ import { toast } from 'react-toastify'
 import DatePicker from 'react-date-picker'
 import 'react-date-picker/dist/DatePicker.css'
 import 'react-calendar/dist/Calendar.css'
+import { apiURL, imgbbAPI } from 'src/config/Config'
+import ImageUpload from 'src/components/image/ImageUpload'
 Quill.register('modules/imageUploader', ImageUploader)
+
+const categoriesData = ['Architecture', 'Education']
 
 const CampaignAddNew = () => {
   const [content, setContent] = useState('')
   const [countries, setCountries] = useState([])
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
-  const { handleSubmit, control, setValue } = useForm()
+  const { handleSubmit, control, setValue, watch } = useForm()
 
-  const handleAddNewCampaign = (values) => {
-    console.log('handleAddNewCampaign ~ values', values)
+  const getDropdownLabel = (name, defaultValue) => {
+    const value = watch(name) || defaultValue
+    return value
   }
 
   const handleSelectDropdownOption = (name, value) => {
     setValue(name, value)
   }
+  const handleAddNewCampaign = async (values) => {
+    try {
+      console.log('handleAddNewCampaign ~ values', values)
+      await axios.post(`${apiURL}/campaigns`, {
+        ...values,
+        content,
+        startDate,
+        endDate
+      })
+      toast.success('Create campaign successfully')
+    } catch (error) {
+      toast.error('Can not create new campaigns')
+    }
+  }
+
   const [filterCountry, setFilterCountry] = useOnChange(500)
   useEffect(() => {
     async function fetchCountries() {
@@ -58,7 +78,21 @@ const CampaignAddNew = () => {
         [{ header: [1, 2, 3, 4, 5, 6, false] }],
         ['link', 'image']
       ],
-      imageUploader: {}
+      imageUploader: {
+        upload: async (file) => {
+          const bodyFormData = new FormData()
+          bodyFormData.append('image', file)
+          const response = await axios({
+            method: 'post',
+            url: imgbbAPI,
+            data: bodyFormData,
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          return response.data.data.url
+        }
+      }
     }),
     []
   )
@@ -82,15 +116,20 @@ const CampaignAddNew = () => {
               <Label>Select a category *</Label>
               {/* Dropdown */}
               <Dropdown>
-                <Dropdown.Select placeholder='Select a category'></Dropdown.Select>
+                <Dropdown.Select
+                  placeholder={getDropdownLabel('category', 'Select category')}
+                ></Dropdown.Select>
                 <Dropdown.List>
-                  <Dropdown.Option
-                    onClick={() =>
-                      handleSelectDropdownOption('category', 'fullstack')
-                    }
-                  >
-                    Fullstack
-                  </Dropdown.Option>
+                  {categoriesData.map((category, index) => (
+                    <Dropdown.Option
+                      onClick={() =>
+                        handleSelectDropdownOption('category', category)
+                      }
+                      key={index}
+                    >
+                      <span className='capitalize'>{category}</span>
+                    </Dropdown.Option>
+                  ))}
                 </Dropdown.List>
               </Dropdown>
             </Field>
@@ -115,6 +154,17 @@ const CampaignAddNew = () => {
               placeholder='Write your story......'
             />
           </Field>
+
+          <FieldRow>
+            <Field>
+              <Label>Featured Image</Label>
+              <ImageUpload
+                onChange={setValue}
+                name='featured_image'
+              ></ImageUpload>
+            </Field>
+            <Field></Field>
+          </FieldRow>
 
           <FieldRow>
             <Field>
@@ -172,10 +222,12 @@ const CampaignAddNew = () => {
             <Field>
               <Label>Counrty</Label>
               <Dropdown>
-                <Dropdown.Select placeholder='Select a counrty'></Dropdown.Select>
+                <Dropdown.Select
+                  placeholder={getDropdownLabel('country', 'Select country')}
+                ></Dropdown.Select>
                 <Dropdown.List>
                   <Dropdown.Search
-                    placeholder='Search country'
+                    placeholder='Search country...'
                     onChange={setFilterCountry}
                   ></Dropdown.Search>
                   {countries.length > 0 &&
@@ -183,10 +235,10 @@ const CampaignAddNew = () => {
                     countries.map((country) => (
                       <Dropdown.Option
                         key={country?.name?.common}
-                        onChange={() =>
+                        onClick={() =>
                           handleSelectDropdownOption(
                             'country',
-                            country?.name?.commons
+                            country?.name?.common
                           )
                         }
                       >
@@ -219,7 +271,7 @@ const CampaignAddNew = () => {
 
           <div className='text-center'>
             <Button
-              type='button'
+              type='submit'
               kind='primary'
               className='mx-auto mt-10 px-10'
             >

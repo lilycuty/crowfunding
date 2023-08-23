@@ -1,5 +1,20 @@
 {
   "users": [],
   "categories": [],
-  "campaigns": []
+  "campaigns": [
+    {
+      "title": "Powered Kits Learning Boxes",
+      "short_description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex soluta ratione tenetur voluptatibus sequi, beatae accusantium libero minima dolores quibusdam dicta quod, repellendus quia rerum dignissimos deleniti blanditiis consequatur dolor?",
+      "goal": "2000",
+      "amount": "100",
+      "prefilled": "10.20",
+      "video": "https://www.youtube.com/watch?v=roUo2Xbz5_M",
+      "category": "Architecture",
+      "country": "Vietnam",
+      "content": "<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex soluta ratione tenetur voluptatibus sequi, beatae accusantium libero minima dolores quibusdam dicta quod, repellendus quia rerum dignissimos deleniti blanditiis consequatur dolor?</p>",
+      "startDate": "2023-08-22T17:00:00.000Z",
+      "endDate": "2023-08-26T17:00:00.000Z",
+      "id": 1
+    }
+  ]
 }

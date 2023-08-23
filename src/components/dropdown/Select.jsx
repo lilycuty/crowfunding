@@ -15,7 +15,7 @@ const Select = ({
       )}
       onClick={toggle}
     >
-      <span>{placeholder}</span>
+      <span className='capitalize'>{placeholder}</span>
       <span>
         {show ? (
           <svg
