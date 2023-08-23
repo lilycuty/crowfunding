@@ -13,6 +13,8 @@ import { Input } from 'components/input'
 import { Field } from 'components/field'
 import { ButtonGoggle } from 'src/components/button'
 import { Button } from 'components/button'
+import { useDispatch } from 'react-redux'
+import { authLogin } from 'src/store/auth/auth-slice'
 
 const schema = yup.object({
   email: yup
@@ -31,9 +33,10 @@ const SignInPage = () => {
     mode: 'onSubmit',
     resolver: yupResolver(schema)
   })
-
+  const dispatch = useDispatch()
   const handleSignIn = (values) => {
     console.log('handleSignUpForm ~ values', values)
+    dispatch(authLogin(values))
   }
 
   return (

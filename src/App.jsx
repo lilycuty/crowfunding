@@ -44,8 +44,8 @@ const App = () => {
             element={<ShippingPage></ShippingPage>}
           ></Route>
         </Route>
-        <Route path='/sign-up' element={<SignUpPage></SignUpPage>}></Route>
-        <Route path='/sign-in' element={<SignInPage></SignInPage>}></Route>
+        <Route path='/register' element={<SignUpPage></SignUpPage>}></Route>
+        <Route path='/login' element={<SignInPage></SignInPage>}></Route>
       </Routes>
     </Suspense>
   )

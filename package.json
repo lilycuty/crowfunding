@@ -16,6 +16,7 @@
     "firebase": "^10.1.0",
     "html-react-parser": "^4.2.1",
     "http-proxy-middleware": "^2.0.6",
+    "js-cookie": "^3.0.5",
     "json-server": "^0.17.3",
     "lodash": "^4.17.21",
     "prop-types": "^15.8.1",

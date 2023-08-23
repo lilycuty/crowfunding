@@ -15,9 +15,11 @@ import { ButtonGoggle } from 'src/components/button'
 import { Button } from 'components/button'
 import { withErrorBoundary } from 'react-error-boundary'
 import ErrorComponent from 'src/components/common/ErrorComponent'
+import { useDispatch } from 'react-redux'
+import { authRegister } from 'src/store/auth/auth-slice'
 
 const schema = yup.object({
-  fullname: yup.string().required('This field is required'),
+  name: yup.string().required('This field is required'),
   email: yup
     .string()
     .required('This field is required')
@@ -34,14 +36,21 @@ const SignUpPage = () => {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { isValid, isSubmitting, errors }
   } = useForm({
     mode: 'onSubmit',
     resolver: yupResolver(schema)
   })
-
+  const dispatch = useDispatch()
   const handleSignUpForm = (values) => {
-    console.log('handleSignUpForm ~ values', values)
+    try {
+      console.log('handleSignUpForm ~ values', values)
+      dispatch(authRegister(values))
+      reset({})
+    } catch (error) {
+      console.log('handleSignUpForm ~ error', error)
+    }
   }
 
   return (
@@ -51,7 +60,7 @@ const SignUpPage = () => {
       mb-6'
       >
         Already have an account?{' '}
-        <Link to='/sign-in' className='text-primary font-medium underline'>
+        <Link to='/login' className='text-primary font-medium underline'>
           Sign in
         </Link>
       </p>
@@ -62,11 +71,11 @@ const SignUpPage = () => {
 
       <form onSubmit={handleSubmit(handleSignUpForm)} autoComplete='off'>
         <Field>
-          <Label htmlFor='fullname'>Full Name *</Label>
+          <Label htmlFor='name'>Full Name *</Label>
           <Input
-            name='fullname'
+            name='name'
             placeholder='Enter your fullname'
-            error={errors.fullname?.message}
+            error={errors.name?.message}
             control={control}
           ></Input>
         </Field>
