@@ -9,5 +9,8 @@ export default defineConfig({
       src: '/src',
       components: '/src/components'
     }
+  },
+  define: {
+    'process.env': {}
   }
 })

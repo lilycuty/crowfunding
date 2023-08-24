@@ -18,14 +18,31 @@ const authSlice = createSlice({
       ...action.payload
     }),
     authUpdateUser: (state, action) => {
+      console.log('authUpdateUser-action', action)
       return {
         ...state,
         user: action.payload.user,
         accessToken: action.payload.accessToken
       }
-    }
+    },
+    authFetchMe: (state, action) => {
+      console.log('authFetchMe action', action)
+      return {
+        ...state,
+        ...action.payload
+      }
+    },
+    authRefreshToken: (state, action) => ({
+      //Gửi refresh_token lên server để lấy access_token mới
+    })
   }
 })
 
-export const { authLogin, authRegister, authUpdateUser } = authSlice.actions
+export const {
+  authLogin,
+  authRegister,
+  authUpdateUser,
+  authFetchMe,
+  authRefreshToken
+} = authSlice.actions
 export default authSlice.reducer

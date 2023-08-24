@@ -1,6 +1,10 @@
 import React, { Suspense } from 'react'
+import { useEffect } from 'react'
 import Modal from 'react-modal'
+import { useDispatch, useSelector } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
+import { authRefreshToken, authUpdateUser } from './store/auth/auth-slice'
+import { getToken } from './utils/auth'
 const StartCampaignPage = React.lazy(() => import('./pages/StartCampaignPage'))
 const SignUpPage = React.lazy(() => import('./pages/SignUpPage'))
 const SignInPage = React.lazy(() => import('./pages/SignInPage'))
@@ -16,6 +20,22 @@ Modal.setAppElement('#root')
 Modal.defaultStyles = {}
 
 const App = () => {
+  const { user } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    if (user && user.id) {
+      const { access_token } = getToken()
+      dispatch(
+        authUpdateUser({
+          user: user,
+          accessToken: access_token
+        })
+      )
+    } else {
+      const { refresh_token } = getToken()
+      dispatch(authRefreshToken(refresh_token))
+    }
+  }, [user])
   return (
     <Suspense>
       <Routes>

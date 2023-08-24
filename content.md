@@ -4,9 +4,10 @@
   (Authorization: Uỷ quyền) Khi đăng nhập vào rồi có quyền hạn gì có đọc được bài viết đó hay không, sửa, xoá, tạo hay không -> Permission(Gọi chung là Authorization)
 
 - Khi Đăng nhập xong sẽ có 1 ACCESS_TOKEN_SECRET, có 1 thời hạn tuỳ vào việc backend thiết lập. Dựa vào ACCESS_TOKEN để biết thông tin của user
-- REFRESH_TOKEN sẽ có thời gian sống lâu hơn ACCESS_TOKEN (Khi user đang đăng nhập ACCESS_TOKEN hết hạn -> Nó sẽ lấy REFRESH_TOKEN ra)
+- REFRESH_TOKEN sẽ có thời gian sống lâu hơn ACCESS_TOKEN (Khi user đang đăng nhập ACCESS_TOKEN hết hạn -> Nó sẽ lấy REFRESH_TOKEN ra để gửi request lên server để lấy access_token mới khi access_token hết hạn)
 
 - JWT Gồm 3 phần (Header, Payload, Signature:chữ ký) và được ngăn cách nhau bởi dấu chấm(.)
   +) Header: chứa kiểu dữ liệu và thuật toán sử dụng để mã hoá chuỗi JWT
   +) Payload: Chứa các thông tin của mình (Data)
   +) Signature: mã hoá phần Header và Payload kèm theo một chuỗi secret (Khoá bí mật)
+  "proxy": "http://localhost:4001"
