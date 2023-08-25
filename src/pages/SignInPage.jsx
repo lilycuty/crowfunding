@@ -39,15 +39,6 @@ const SignInPage = () => {
     console.log('handleSignUpForm ~ values', values)
     dispatch(authLogin(values))
   }
-  //Nếu đăng nhập rồi thì sẽ ko chạy vào trang SignIn mà về Trang chủ
-  const { user } = useSelector((state) => state.auth)
-  const navigate = useNavigate()
-  useEffect(() => {
-    if (user && user.id) {
-      navigate('/')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user])
 
   return (
     <LayoutAuthentication heading='Welcome Back!'>

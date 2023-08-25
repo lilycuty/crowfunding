@@ -11,3 +11,6 @@
   +) Payload: Chứa các thông tin của mình (Data)
   +) Signature: mã hoá phần Header và Payload kèm theo một chuỗi secret (Khoá bí mật)
   "proxy": "http://localhost:4001"
+
+- Axios Interceptors
+  Can thiệp vào request và response

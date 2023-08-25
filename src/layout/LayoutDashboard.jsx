@@ -4,21 +4,24 @@ import Overlay from 'src/components/common/Overlay'
 import ModalBackProject from 'src/components/modal.jsx/ModalBackProject'
 import DashboardSidebar from 'src/modules/dashboard/DashboardSidebar'
 import DashboardTopbar from 'src/modules/dashboard/DashboardTopbar'
+import RequiredAuthPage from 'src/pages/RequiredAuthPage'
 
 // eslint-disable-next-line no-unused-vars
 const LayoutDashboard = ({ children }) => {
   return (
-    <div className='p-10 bg-lite min-h-screen'>
-      <ModalBackProject></ModalBackProject>
-      <Overlay></Overlay>
-      <DashboardTopbar></DashboardTopbar>
-      <div className='flex gap-x-10 items-start'>
-        <DashboardSidebar></DashboardSidebar>
-        <div className='flex-1'>
-          <Outlet></Outlet>
+    <RequiredAuthPage>
+      <div className='p-10 bg-lite min-h-screen'>
+        <ModalBackProject></ModalBackProject>
+        <Overlay></Overlay>
+        <DashboardTopbar></DashboardTopbar>
+        <div className='flex gap-x-10 items-start'>
+          <DashboardSidebar></DashboardSidebar>
+          <div className='flex-1'>
+            <Outlet></Outlet>
+          </div>
         </div>
       </div>
-    </div>
+    </RequiredAuthPage>
   )
 }
 LayoutDashboard.propTypes = {

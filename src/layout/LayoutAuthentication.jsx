@@ -1,11 +1,26 @@
 /* eslint-disable react-refresh/only-export-components */
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withErrorBoundary } from 'react-error-boundary'
 import ErrorComponent from '../components/common/ErrorComponent'
+import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 const LayoutAuthentication = (props) => {
-  const { heading, children } = props
+  const { heading = '', children } = props
+  const { user } = useSelector((state) => state.auth)
+  console.log('LayoutAuthentication ~ user', user)
+  const navigate = useNavigate()
+  //Nếu đăng nhập rồi thì sẽ ko chạy vào trang SignIn mà về Trang chủ
+  useEffect(() => {
+    if (user && user?.email) {
+      navigate('/')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
+
+  if (user && user?.email) return null
+
   return (
     <div className='w-full min-h-screen bg-lite dark:bg-darkbg p-10 relative isolate'>
       <img
