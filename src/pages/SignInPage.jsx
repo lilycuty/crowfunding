@@ -6,15 +6,16 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { withErrorBoundary } from 'react-error-boundary'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Label } from 'components/label'
 import { InputTogglePassword } from 'components/input'
 import { Input } from 'components/input'
 import { Field } from 'components/field'
 import { ButtonGoggle } from 'src/components/button'
 import { Button } from 'components/button'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { authLogin } from 'src/store/auth/auth-slice'
+import { useEffect } from 'react'
 
 const schema = yup.object({
   email: yup
@@ -38,6 +39,15 @@ const SignInPage = () => {
     console.log('handleSignUpForm ~ values', values)
     dispatch(authLogin(values))
   }
+  //Nếu đăng nhập rồi thì sẽ ko chạy vào trang SignIn mà về Trang chủ
+  const { user } = useSelector((state) => state.auth)
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (user && user.id) {
+      navigate('/')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
 
   return (
     <LayoutAuthentication heading='Welcome Back!'>

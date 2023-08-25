@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit'
 
 const authSlice = createSlice({
@@ -34,7 +35,8 @@ const authSlice = createSlice({
     },
     authRefreshToken: (state, action) => ({
       //Gửi refresh_token lên server để lấy access_token mới
-    })
+    }),
+    authLogout: (state, action) => ({})
   }
 })
 
@@ -43,6 +45,7 @@ export const {
   authRegister,
   authUpdateUser,
   authFetchMe,
-  authRefreshToken
+  authRefreshToken,
+  authLogout
 } = authSlice.actions
 export default authSlice.reducer

@@ -4,7 +4,7 @@ import Modal from 'react-modal'
 import { useDispatch, useSelector } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
 import { authRefreshToken, authUpdateUser } from './store/auth/auth-slice'
-import { getToken } from './utils/auth'
+import { getToken, logOut } from './utils/auth'
 const StartCampaignPage = React.lazy(() => import('./pages/StartCampaignPage'))
 const SignUpPage = React.lazy(() => import('./pages/SignUpPage'))
 const SignInPage = React.lazy(() => import('./pages/SignInPage'))
@@ -33,7 +33,12 @@ const App = () => {
       )
     } else {
       const { refresh_token } = getToken()
-      dispatch(authRefreshToken(refresh_token))
+      if (refresh_token) {
+        dispatch(authRefreshToken(refresh_token))
+      } else {
+        dispatch(authUpdateUser({}))
+        logOut()
+      }
     }
   }, [user])
   return (
