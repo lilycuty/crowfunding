@@ -9,7 +9,6 @@ import { useEffect } from 'react'
 const LayoutAuthentication = (props) => {
   const { heading = '', children } = props
   const { user } = useSelector((state) => state.auth)
-  console.log('LayoutAuthentication ~ user', user)
   const navigate = useNavigate()
   //Nếu đăng nhập rồi thì sẽ ko chạy vào trang SignIn mà về Trang chủ
   useEffect(() => {

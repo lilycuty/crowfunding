@@ -46,7 +46,7 @@ const SignUpPage = () => {
   const handleSignUpForm = (values) => {
     try {
       console.log('handleSignUpForm ~ values', values)
-      dispatch(authRegister(values))
+      dispatch(authRegister({ ...values, permissions: [] }))
       reset({})
     } catch (error) {
       console.log('handleSignUpForm ~ error', error)
